@@ -2,32 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1 : MonoBehaviour
+public class Level1 : Level
 {
     private PlayerController _playerController;
-    private GameObject _player;
+    private Player _player;
     private SpriteRenderer _playerRenderer;
-    private GameObject _grid;
-
-    void Awake()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _playerController = _player.GetComponent<PlayerController>();
-        _playerController.enabled = false;
-        _playerRenderer = _player.GetComponent<SpriteRenderer>();
-        _playerRenderer.enabled = false;
-        _grid = GameObject.Find("Walls");
-        _grid.SetActive(false);
-    }
+    private GameObject _wallsWhite;
+    private GameObject _wallsGray;
 
     void Start()
     {
-        var co = StartLevel();
-        StartCoroutine(co);
+        var playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        _playerController = playerGameObject.GetComponent<PlayerController>();
+        _player = playerGameObject.GetComponent<Player>();
+        _playerRenderer = playerGameObject.GetComponent<SpriteRenderer>();
+
+        _player.SetColor(LogicColor.Disabled);
+        _playerController.enabled = false;
+        _playerRenderer.enabled = false;
     }
 
-    IEnumerator StartLevel()
+    public override IEnumerator StartLevel()
     {
+        _wallsWhite = GameObject.Find("WallsWhite");
+        _wallsGray = GameObject.Find("WallsGray");
+        _wallsWhite.SetActive(false);
+        _wallsGray.SetActive(false);
+
         yield return new WaitForSeconds(1.0f);
 
         {
@@ -51,7 +52,7 @@ public class Level1 : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         {
-            var co = FadeLevelIn();
+            var co = FadeWallsIn(_wallsWhite);
             StartCoroutine(co);
         }
         {
@@ -65,16 +66,23 @@ public class Level1 : MonoBehaviour
 
         {
             var dialog = new TextDialog();
-            dialog.Snippets.Add(new TextSnippet { text = "But admitedly that was boring." });
+            dialog.Snippets.Add(new TextSnippet { text = "But admittedly that was boring." });
             yield return Director.Instance.StartDialogImpl(dialog, block: false);
         }
 
         yield return new WaitForSeconds(1.0f);
 
+        _player.SetColor(LogicColor.White);
+        {
+            var co = FadeWallsIn(_wallsGray);
+            StartCoroutine(co);
+        }
         {
             var dialog = new TextDialog();
-            dialog.Snippets.Add(new TextSnippet { text = "So ." });
-            yield return Director.Instance.StartDialogImpl(dialog, block: false);
+            dialog.Snippets.Add(new TextSnippet { text = "So came the shades." });
+            dialog.Snippets.Add(new TextSnippet { text = "Some say they were 50 of them.", append = true });
+            dialog.Snippets.Add(new TextSnippet { text = "But here we have less.", append = true });
+            yield return Director.Instance.StartDialogImpl(dialog, block: true);
         }
     }
 
@@ -92,9 +100,9 @@ public class Level1 : MonoBehaviour
         }
     }
 
-    IEnumerator FadeLevelIn()
+    IEnumerator FadeWallsIn(GameObject walls)
     {
         yield return new WaitForSeconds(1.0f);
-        _grid.SetActive(true);
+        walls.SetActive(true); //< TODO - fade
     }
 }

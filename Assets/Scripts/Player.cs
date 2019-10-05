@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum LogicColor
+{
+    Disabled,
+    White,
+    Gray
+}
+
 public class Player : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    public LogicColor LogicColor { get; private set; } = LogicColor.Disabled;
 
     void Update()
     {
@@ -19,6 +23,17 @@ public class Player : MonoBehaviour
             dialog.Snippets.Add(new TextSnippet { text = "This is the third line." });
             Director.Instance.StartDialog(dialog);
         }
+    }
+
+    public void SetColor(LogicColor color)
+    {
+        if (color == LogicColor)
+        {
+            return;
+        }
+
+        LogicColor = color;
+        Director.Instance.DisableLayer(LogicColor);
     }
 
     public void OnPickUp(PickUp pickUp)

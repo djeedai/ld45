@@ -22,7 +22,7 @@ TextureImporter:
     second: Sprites001_1
   - first:
       213: 6741537034539528690
-    second: Sprites001_2
+    second: White
   - first:
       213: 775630791392860011
     second: Sprites001_3
@@ -56,6 +56,21 @@ TextureImporter:
   - first:
       213: -7419453380614899673
     second: ButtonA_unsat
+  - first:
+      213: 2358706179394437105
+    second: Gray
+  - first:
+      213: -2279586401753507755
+    second: Exit
+  - first:
+      213: -8091092738289577815
+    second: ExitBL
+  - first:
+      213: 5810458880081936466
+    second: ExitTR
+  - first:
+      213: -6698209232716002682
+    second: ExitBR
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -213,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sprites001_2
+      name: White
       rect:
         serializedVersion: 2
         x: 32
@@ -431,7 +446,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -452,7 +467,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -460,6 +475,48 @@ TextureImporter:
       bones: []
       spriteID: 951e78eb4d63d5c47941fed5dd448bcd
       internalID: -7419453380614899673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gray
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d25725f2878c3c94994b6d4f12ba4ff0
+      internalID: 2358706179394437105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Exit
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a624166e4b4b6ee47ac2a3175ed7e1cd
+      internalID: -2279586401753507755
       vertices: []
       indices: 
       edges: []

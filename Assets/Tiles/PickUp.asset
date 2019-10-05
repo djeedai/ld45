@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Sprites001_2
+  m_Name: PickUp
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 6741537034539528690, guid: 5f0b59623595b084ba6c4472e7ec170f,
     type: 3}
