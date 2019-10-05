@@ -32,8 +32,9 @@ public class Director : MonoBehaviour
     private static Director _instance;
 
     public string StartLevelName;
+    public Player Player { get; private set; }
+    public PlayerController PlayerController { get; private set; }
 
-    private PlayerController _playerController;
     private TMPro.TextMeshPro _text;
     private GameObject _frame;
     private GameObject _button;
@@ -46,13 +47,17 @@ public class Director : MonoBehaviour
 
     void Start()
     {
-        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        var playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        Player = playerGameObject.GetComponent<Player>();
+        PlayerController = playerGameObject.GetComponent<PlayerController>();
         _text = GetComponentInChildren<TMPro.TextMeshPro>(includeInactive: true);
-        _frame = GameObject.Find("Frame");
+        _frame = gameObject.transform.GetChild(0).gameObject;  //GameObject.Find("Frame");
+        _frame.SetActive(true); // For Find() below
         _button = GameObject.Find("SkipButton");
+        _frame.SetActive(false);
 
         _text.enabled = false;
-        _frame.SetActive(false);
+        //_frame.SetActive(false);
         _button.SetActive(false);
 
         // Get base scene (always loaded)
@@ -130,10 +135,10 @@ public class Director : MonoBehaviour
 
     public IEnumerator StartDialogImpl(TextDialog dialog, bool block)
     {
-        bool wasActive = _playerController.enabled;
+        bool wasActive = PlayerController.enabled;
         if (block)
         {
-            _playerController.enabled = false;
+            PlayerController.enabled = false;
         }
         _text.enabled = true;
         _frame.SetActive(true);
@@ -160,13 +165,13 @@ public class Director : MonoBehaviour
         _frame.SetActive(false);
         if (block)
         {
-            _playerController.enabled = wasActive;
+            PlayerController.enabled = wasActive;
         }
     }
 
     public IEnumerator LoadLevelAsync(string levelName)
     {
-        _playerController.enabled = false;
+        PlayerController.enabled = false;
 
         {
             AsyncOperation op = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
@@ -181,7 +186,7 @@ public class Director : MonoBehaviour
         SceneManager.SetActiveScene(_levelScene);
 
         _currentLevelName = levelName;
-        _playerController.enabled = true;
+        PlayerController.enabled = true;
     }
 
     IEnumerator WaitForUse()

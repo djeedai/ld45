@@ -71,6 +71,12 @@ TextureImporter:
   - first:
       213: -6698209232716002682
     second: ExitBR
+  - first:
+      213: -3843770177807382
+    second: WhiteGray
+  - first:
+      213: 6813728722133236110
+    second: LightGray
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -509,7 +515,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -517,6 +523,48 @@ TextureImporter:
       bones: []
       spriteID: a624166e4b4b6ee47ac2a3175ed7e1cd
       internalID: -2279586401753507755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteGray
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41142046b39236744a8de9cdf4662d16
+      internalID: -3843770177807382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightGray
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 224
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6252ab3d52c26884fb31bbf7d5024cd8
+      internalID: 6813728722133236110
       vertices: []
       indices: 
       edges: []

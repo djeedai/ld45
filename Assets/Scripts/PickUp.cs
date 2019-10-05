@@ -10,16 +10,11 @@ public enum PickUpType
 public class PickUp : MonoBehaviour
 {
     public PickUpType Type = PickUpType.ColorChange;
-    public Color NewColor = Color.blue;
+    public LogicColor NewColor = LogicColor.White;
 
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        GetComponent<SpriteRenderer>().color = NewColor.ToColor();
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
