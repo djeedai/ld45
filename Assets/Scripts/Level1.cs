@@ -62,6 +62,20 @@ public class Level1 : MonoBehaviour
         }
 
         _playerController.enabled = true;
+
+        {
+            var dialog = new TextDialog();
+            dialog.Snippets.Add(new TextSnippet { text = "But admitedly that was boring." });
+            yield return Director.Instance.StartDialogImpl(dialog, block: false);
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        {
+            var dialog = new TextDialog();
+            dialog.Snippets.Add(new TextSnippet { text = "So ." });
+            yield return Director.Instance.StartDialogImpl(dialog, block: false);
+        }
     }
 
     IEnumerator FadePlayerIn()
