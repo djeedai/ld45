@@ -34,7 +34,7 @@ public class Level1 : Level
         {
             var dialog = new TextDialog();
             dialog.Snippets.Add(new TextSnippet { text = "In the beginning, there was nothing." });
-            yield return Director.Instance.StartDialogImpl(dialog, block: true);
+            yield return Director.Instance.WaitForDialog(dialog, block: true);
         }
 
         yield return new WaitForSeconds(1.0f);
@@ -46,7 +46,7 @@ public class Level1 : Level
         {
             var dialog = new TextDialog();
             dialog.Snippets.Add(new TextSnippet { text = "Then came life." });
-            yield return Director.Instance.StartDialogImpl(dialog, block: true);
+            yield return Director.Instance.WaitForDialog(dialog, block: true);
         }
 
         yield return new WaitForSeconds(1.0f);
@@ -59,7 +59,7 @@ public class Level1 : Level
             var dialog = new TextDialog();
             dialog.Snippets.Add(new TextSnippet { text = "And walls." });
             dialog.Snippets.Add(new TextSnippet { text = "Because nothing is easy.", append = true });
-            yield return Director.Instance.StartDialogImpl(dialog, block: true);
+            yield return Director.Instance.WaitForDialog(dialog, block: true);
         }
 
         _playerController.enabled = true;
@@ -67,7 +67,7 @@ public class Level1 : Level
         {
             var dialog = new TextDialog();
             dialog.Snippets.Add(new TextSnippet { text = "But admittedly that was boring." });
-            yield return Director.Instance.StartDialogImpl(dialog, block: false);
+            yield return Director.Instance.WaitForDialog(dialog, block: false);
         }
 
         yield return new WaitForSeconds(1.0f);
@@ -82,7 +82,7 @@ public class Level1 : Level
             dialog.Snippets.Add(new TextSnippet { text = "So came the shades." });
             dialog.Snippets.Add(new TextSnippet { text = "Some say they were 50 of them.", append = true });
             dialog.Snippets.Add(new TextSnippet { text = "But here we have less.", append = true });
-            yield return Director.Instance.StartDialogImpl(dialog, block: true);
+            yield return Director.Instance.WaitForDialog(dialog, block: true);
         }
     }
 

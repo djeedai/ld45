@@ -39,11 +39,14 @@ public class Director : MonoBehaviour
     private GameObject _frame;
     private GameObject _button;
     private GameObject _grid;
+    private GameObject _menu;
     private ColorLayer[] _layers;
-    private IEnumerator _coroutine;
+    private IEnumerator _dialog;
+    private Coroutine _coroutine;
     private string _currentLevelName;
     private Scene _baseScene;
     private Scene _levelScene;
+    private bool _controllerWasActive;
 
     void Start()
     {
@@ -51,14 +54,16 @@ public class Director : MonoBehaviour
         Player = playerGameObject.GetComponent<Player>();
         PlayerController = playerGameObject.GetComponent<PlayerController>();
         _text = GetComponentInChildren<TMPro.TextMeshPro>(includeInactive: true);
-        _frame = gameObject.transform.GetChild(0).gameObject;  //GameObject.Find("Frame");
+        _frame = gameObject.transform.Find("Frame").gameObject;
         _frame.SetActive(true); // For Find() below
         _button = GameObject.Find("SkipButton");
         _frame.SetActive(false);
+        _menu = gameObject.transform.Find("Menu").gameObject;
 
         _text.enabled = false;
         //_frame.SetActive(false);
         _button.SetActive(false);
+        _menu.SetActive(false);
 
         // Get base scene (always loaded)
         _baseScene = SceneManager.GetSceneByName("BaseScene");
@@ -129,13 +134,28 @@ public class Director : MonoBehaviour
 
     public void StartDialog(TextDialog dialog, bool block = true)
     {
-        _coroutine = StartDialogImpl(dialog, block);
-        StartCoroutine(_coroutine);
+        _dialog = StartDialogImpl(dialog, block);
+        _coroutine = StartCoroutine(_dialog);
     }
 
-    public IEnumerator StartDialogImpl(TextDialog dialog, bool block)
+    public IEnumerator WaitForDialog(TextDialog dialog, bool block = true)
     {
-        bool wasActive = PlayerController.enabled;
+        _dialog = StartDialogImpl(dialog, block);
+        _coroutine = StartCoroutine(_dialog);
+        return _dialog;
+    }
+
+    public void CancelDialog()
+    {
+        StopCoroutine(_coroutine);
+        _coroutine = null;
+        _dialog = null;
+        EndDialog(false);
+    }
+
+    IEnumerator StartDialogImpl(TextDialog dialog, bool block)
+    {
+        _controllerWasActive = PlayerController.enabled;
         if (block)
         {
             PlayerController.enabled = false;
@@ -161,11 +181,17 @@ public class Director : MonoBehaviour
             _button.SetActive(false);
         }
 
+        EndDialog(block);
+    }
+
+    void EndDialog(bool block)
+    {
+
         _text.enabled = false;
         _frame.SetActive(false);
         if (block)
         {
-            PlayerController.enabled = wasActive;
+            PlayerController.enabled = _controllerWasActive;
         }
     }
 
@@ -199,5 +225,13 @@ public class Director : MonoBehaviour
     {
         yield return new WaitForSeconds(dt);
         _button.SetActive(true);
+    }
+
+    public IEnumerator ShowMenu()
+    {
+        CancelDialog();
+        PlayerController.enabled = false;
+        _menu.SetActive(true);
+        yield return null;
     }
 }
