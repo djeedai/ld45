@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+
     private GameObject _menuArrow;
     private int _selectedIndex = 0;
 
@@ -14,18 +15,43 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        float y = Input.GetAxis("Vertical");
-        if (y != 0)
+        // OpenMenu button closes the menu if already open.
+        // If inside Update() it means the menu is open.
+        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown("OpenMenu"))
         {
-            const int NumEntries = 2;
-            if (y > 0f)
+            gameObject.SetActive(false);
+            return;
+        }
+
+        if (Input.GetButtonDown("Use"))
+        {
+            switch (_selectedIndex)
             {
-                _selectedIndex = (_selectedIndex + 1) % NumEntries;
+            case 0:
+                Director.Instance.RestartLevel();
+                break;
+
+            case 1:
+                Director.Instance.ExitGame();
+                break;
             }
-            else
-            {
-                _selectedIndex = (_selectedIndex + NumEntries - 1) % NumEntries;
-            }
+            return;
+        }
+
+        const int NumEntries = 2;
+        bool changed = false;
+        if (Input.GetButtonDown("MenuDown"))
+        {
+            changed = true;
+            _selectedIndex = (_selectedIndex + 1) % NumEntries;
+        }
+        else if (Input.GetButtonDown("MenuUp"))
+        {
+            changed = true;
+            _selectedIndex = (_selectedIndex + NumEntries - 1) % NumEntries;
+        }
+        if (changed)
+        {
             Vector3 pos = _menuArrow.transform.localPosition;
             pos.y = -0.06f - 0.13f * _selectedIndex;
             _menuArrow.transform.localPosition = pos;

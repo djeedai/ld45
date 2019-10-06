@@ -47,6 +47,7 @@ public class Director : MonoBehaviour
     private Scene _baseScene;
     private Scene _levelScene;
     private bool _controllerWasActive;
+    private Coroutine _levelCoroutine;
 
     void Start()
     {
@@ -72,6 +73,14 @@ public class Director : MonoBehaviour
         {
             var co = LoadStartLevel();
             StartCoroutine(co);
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("OpenMenu"))
+        {
+            _menu.SetActive(true);
         }
     }
 
@@ -122,26 +131,22 @@ public class Director : MonoBehaviour
         _layers = _grid.GetComponentsInChildren<ColorLayer>(includeInactive: true);
 
         // Move player to start and set start color
-        LogicColor startcolor = LogicColor.Disabled;
         {
             var playerStartGO = GameObject.FindGameObjectWithTag("PlayerStart");
             if (playerStartGO != null)
             {
                 var playerStart = playerStartGO.GetComponent<PlayerStart>();
                 Player.transform.position = playerStartGO.transform.position;
-                startcolor = playerStart.StartColor;
-                Player.SetColor(startcolor);
+                // Force even if player has the same color, because level changed
+                Player.SetColor(playerStart.StartColor, force: true);
             }
         }
-
-        // Force even if player has the same color, because level changed
-        DisableLayer(startcolor);
+        Player.ResetScale(); // HoleTrigger makes the player disappear
 
         // Start level
         {
             var level = _grid.GetComponentInChildren<Level>(includeInactive: true);
-            var co = level.StartLevel();
-            StartCoroutine(co);
+            _levelCoroutine = StartCoroutine(level.StartLevel());
         }
     }
 
@@ -228,16 +233,38 @@ public class Director : MonoBehaviour
 
     IEnumerator LoadLevelAsync(string levelName)
     {
+        EndDialog(false);
         PlayerController.enabled = false;
 
-        // Swap level scenes
-        yield return SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
-        var oldScene = _levelScene;
-        _levelScene = SceneManager.GetSceneByName(levelName);
-        SceneManager.SetActiveScene(_levelScene);
-        yield return SceneManager.UnloadSceneAsync(oldScene, UnloadSceneOptions.None);
-        _currentLevelName = levelName;
+        // Stop any level logic before unloading
+        if (_levelCoroutine != null)
+        {
+            StopCoroutine(_levelCoroutine);
+            _levelCoroutine = null;
+        }
 
+        // Manage scenes
+        if (_currentLevelName != levelName)
+        {
+            // Swap level scenes
+            yield return SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+            var oldScene = _levelScene;
+            _levelScene = SceneManager.GetSceneByName(levelName);
+            SceneManager.SetActiveScene(_levelScene);
+            yield return SceneManager.UnloadSceneAsync(oldScene, UnloadSceneOptions.None);
+            _currentLevelName = levelName;
+        }
+        else
+        {
+            // Reload current level
+            SceneManager.SetActiveScene(_baseScene);
+            yield return SceneManager.UnloadSceneAsync(_currentLevelName, UnloadSceneOptions.None);
+            yield return SceneManager.LoadSceneAsync(_currentLevelName, LoadSceneMode.Additive);
+            _levelScene = SceneManager.GetSceneByName(levelName);
+            SceneManager.SetActiveScene(_levelScene);
+        }
+
+        // Start new level logic
         UpdateLevelData();
 
         PlayerController.enabled = true;
@@ -245,7 +272,9 @@ public class Director : MonoBehaviour
 
     IEnumerator WaitForUse()
     {
-        while (!Input.GetButtonDown("Use"))
+        // Wait for "Use" button, and also wait for the menu to be closed,
+        // so that the menu inputs are not consumed by the dialog.
+        while (_menu.activeSelf || !Input.GetButtonDown("Use"))
             yield return null;
     }
 
@@ -255,11 +284,22 @@ public class Director : MonoBehaviour
         _button.SetActive(true);
     }
 
-    public IEnumerator ShowMenu()
+    public void ShowMenu()
     {
         CancelDialog();
         PlayerController.enabled = false;
         _menu.SetActive(true);
-        yield return null;
+    }
+
+    public void RestartLevel()
+    {
+        _menu.SetActive(false);
+        StartCoroutine(LoadLevelAsync(_currentLevelName));
+    }
+
+    public void ExitGame()
+    {
+        //< TODO - Exit title?
+        Application.Quit();
     }
 }

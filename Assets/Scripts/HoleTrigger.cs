@@ -30,6 +30,6 @@ public class HoleTrigger : MonoBehaviour
             yield return null;
         }
 
-        yield return Director.Instance.ShowMenu();
+        Director.Instance.RestartLevel();
     }
 }

@@ -36,9 +36,21 @@ public class Player : MonoBehaviour
 {
     public LogicColor LogicColor { get; private set; } = LogicColor.Disabled;
 
-    public void SetColor(LogicColor color)
+    private Vector3 _baseLocalScale;
+
+    void Awake()
     {
-        if (color == LogicColor)
+        _baseLocalScale = transform.localScale;
+    }
+
+    public void ResetScale()
+    {
+        transform.localScale = _baseLocalScale;
+    }
+
+    public void SetColor(LogicColor color, bool force = false)
+    {
+        if (!force && (color == LogicColor))
         {
             return;
         }
