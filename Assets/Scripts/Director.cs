@@ -49,6 +49,14 @@ public class Director : MonoBehaviour
     private bool _controllerWasActive;
     private Coroutine _levelCoroutine;
 
+    void Awake()
+    {
+        // Somehow on PC the settings don't work, force here
+        bool isFullScreen = false;
+        int desiredFPS = 60;
+        Screen.SetResolution(1024, 768, isFullScreen, desiredFPS);
+    }
+
     void Start()
     {
         var playerGameObject = GameObject.FindGameObjectWithTag("Player");
@@ -79,6 +87,10 @@ public class Director : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("OpenMenu"))
+        {
+            ShowMenu();
+        }
+        if (!_menu.activeSelf && Input.GetButtonDown("Cancel"))
         {
             ShowMenu();
         }

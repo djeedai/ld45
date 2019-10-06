@@ -339,6 +339,7 @@ ASALocalRun/
 healthchecksdb
 
 /Assets/TextMesh Pro
+/Builds
 /Library
 /Temp
 /*.csproj
