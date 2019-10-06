@@ -366,8 +366,15 @@ public class Director : MonoBehaviour
     public void ShowMenu()
     {
         CancelDialog();
+        _controllerWasActive = PlayerController.enabled;
         PlayerController.enabled = false;
         _menu.SetActive(true);
+    }
+
+    public void CloseMenu()
+    {
+        _menu.SetActive(false);
+        PlayerController.enabled = _controllerWasActive;
     }
 
     public void RestartLevel()
