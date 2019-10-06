@@ -386,7 +386,11 @@ public class Director : MonoBehaviour
     public void ExitGame()
     {
         //< TODO - Exit title?
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     public void PlaySfx(AudioClip sfxClip)

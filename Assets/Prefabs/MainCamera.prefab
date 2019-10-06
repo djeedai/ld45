@@ -98,6 +98,7 @@ MonoBehaviour:
   MoveSfx: {fileID: 8300000, guid: 4e59da4827e71534bb7d33472ca1c36d, type: 3}
   SelectSfx: {fileID: 8300000, guid: e6302f88d59f2c248b421a0fb8d660f6, type: 3}
   CancelSfx: {fileID: 8300000, guid: a0eb548d59a46c947b42c469fa727252, type: 3}
+  KeyRepeatRate: 0.3
 --- !u!1 &2944151607824341631
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,9 +8,11 @@ public class MainMenu : MonoBehaviour
     public AudioClip MoveSfx;
     public AudioClip SelectSfx;
     public AudioClip CancelSfx;
+    public float KeyRepeatRate = 1f;
 
     private GameObject _menuArrow;
     private int _selectedIndex = 0;
+    private float _timeSinceLastArrow = 0f;
 
     void Start()
     {
@@ -49,14 +51,31 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
+        var y = Input.GetAxisRaw("Vertical");
+        bool inputDown = false;
+        bool inputUp = false;
+        float curTime = Time.time;
+        if ((y != 0f) && ((curTime - _timeSinceLastArrow) >= KeyRepeatRate))
+        {
+            _timeSinceLastArrow = curTime;
+            if (y > 0f)
+                inputUp = true;
+            else
+                inputDown = true;
+        }
+        else if (y == 0f)
+        {
+            _timeSinceLastArrow = 0f;
+        }
+
         const int NumEntries = 2;
         bool changed = false;
-        if (Input.GetButtonDown("MenuDown"))
+        if (inputDown || Input.GetButtonDown("MenuDown"))
         {
             changed = true;
             _selectedIndex = (_selectedIndex + 1) % NumEntries;
         }
-        else if (Input.GetButtonDown("MenuUp"))
+        else if (inputUp || Input.GetButtonDown("MenuUp"))
         {
             changed = true;
             _selectedIndex = (_selectedIndex + NumEntries - 1) % NumEntries;
