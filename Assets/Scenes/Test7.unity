@@ -97,7 +97,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3529,7 +3529,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 513658151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3243e8bbe286f4e408f08d40f18e5950, type: 3}
+  m_Script: {fileID: 11500000, guid: d3637536b543ce7419e415e6de39bccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BackgroundMusicIntro: {fileID: 0}
