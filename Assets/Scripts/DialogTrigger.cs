@@ -13,12 +13,12 @@ public class DialogTrigger : MonoBehaviour
         {
             return;
         }
-        if (OneShot)
-        {
-            enabled = false;
-        }
         var dialog = new TextDialog();
         dialog.Snippets.Add(new TextSnippet { text = Dialog });
         Director.Instance.StartDialog(dialog, block: false);
+        if (OneShot)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

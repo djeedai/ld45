@@ -10,7 +10,6 @@ public class LevelTransition : MonoBehaviour
         {
             return;
         }
-        var co = Director.Instance.LoadLevelAsync(NextLevelName);
-        StartCoroutine(co);
+        Director.Instance.ChangeLevelTo(NextLevelName);
     }
 }

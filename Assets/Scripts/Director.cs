@@ -112,9 +112,30 @@ public class Director : MonoBehaviour
             }
         }
 
-        // Prepare level
+        UpdateLevelData();
+    }
+
+    void UpdateLevelData()
+    {
+        // Gather level-specific data from newly loaded level
         _grid = GameObject.Find("Grid");
         _layers = _grid.GetComponentsInChildren<ColorLayer>(includeInactive: true);
+
+        // Move player to start and set start color
+        LogicColor startcolor = LogicColor.Disabled;
+        {
+            var playerStartGO = GameObject.FindGameObjectWithTag("PlayerStart");
+            if (playerStartGO != null)
+            {
+                var playerStart = playerStartGO.GetComponent<PlayerStart>();
+                Player.transform.position = playerStartGO.transform.position;
+                startcolor = playerStart.StartColor;
+                Player.SetColor(startcolor);
+            }
+        }
+
+        // Force even if player has the same color, because level changed
+        DisableLayer(startcolor);
 
         // Start level
         {
@@ -142,13 +163,16 @@ public class Director : MonoBehaviour
     {
         _dialog = StartDialogImpl(dialog, block);
         _coroutine = StartCoroutine(_dialog);
-        return _dialog;
+        yield return _coroutine;
     }
 
     public void CancelDialog()
     {
-        StopCoroutine(_coroutine);
-        _coroutine = null;
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
         _dialog = null;
         EndDialog(false);
     }
@@ -186,7 +210,6 @@ public class Director : MonoBehaviour
 
     void EndDialog(bool block)
     {
-
         _text.enabled = false;
         _frame.SetActive(false);
         if (block)
@@ -195,23 +218,28 @@ public class Director : MonoBehaviour
         }
     }
 
-    public IEnumerator LoadLevelAsync(string levelName)
+    public void ChangeLevelTo(string levelName)
+    {
+        // Start coroutine from this GameObject, so that scene unloading
+        // does not affect the coroutine. Otherwise if started from a GO
+        // inside the old scene it'll get aborted when the scene is unloaded.
+        StartCoroutine(LoadLevelAsync(levelName));
+    }
+
+    IEnumerator LoadLevelAsync(string levelName)
     {
         PlayerController.enabled = false;
 
-        {
-            AsyncOperation op = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
-            while (!op.isDone)
-            {
-                yield return null;
-            }
-        }
-
-        SceneManager.UnloadSceneAsync(_levelScene, UnloadSceneOptions.None);
+        // Swap level scenes
+        yield return SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+        var oldScene = _levelScene;
         _levelScene = SceneManager.GetSceneByName(levelName);
         SceneManager.SetActiveScene(_levelScene);
-
+        yield return SceneManager.UnloadSceneAsync(oldScene, UnloadSceneOptions.None);
         _currentLevelName = levelName;
+
+        UpdateLevelData();
+
         PlayerController.enabled = true;
     }
 

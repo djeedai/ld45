@@ -36,18 +36,6 @@ public class Player : MonoBehaviour
 {
     public LogicColor LogicColor { get; private set; } = LogicColor.Disabled;
 
-    void Update()
-    {
-        if (Input.GetButton("Fire2"))
-        {
-            var dialog = new TextDialog();
-            dialog.Snippets.Add(new TextSnippet { text = "This is the first line." });
-            dialog.Snippets.Add(new TextSnippet { text = "This is the second line." });
-            dialog.Snippets.Add(new TextSnippet { text = "This is the third line." });
-            Director.Instance.StartDialog(dialog);
-        }
-    }
-
     public void SetColor(LogicColor color)
     {
         if (color == LogicColor)
