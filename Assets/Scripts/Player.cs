@@ -60,12 +60,22 @@ public class Player : MonoBehaviour
         Director.Instance.DisableLayer(LogicColor);
     }
 
+    public void SetDeltaSize(float deltaSize)
+    {
+        _baseLocalScale += new Vector3(deltaSize, deltaSize, deltaSize);
+        transform.localScale = _baseLocalScale;
+    }
+
     public void OnPickUp(PickUp pickUp)
     {
         switch (pickUp.Type)
         {
         case PickUpType.ColorChange:
             SetColor(pickUp.NewColor);
+            break;
+
+        case PickUpType.SizeChange:
+            SetDeltaSize(pickUp.DeltaSize);
             break;
         }
     }

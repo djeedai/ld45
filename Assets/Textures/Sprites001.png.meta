@@ -113,6 +113,12 @@ TextureImporter:
   - first:
       213: -3202018510914386739
     second: Lever
+  - first:
+      213: 6381443670605772290
+    second: HoleTLR
+  - first:
+      213: 7718535393054611025
+    second: HoleBLR
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -845,7 +851,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -853,6 +859,48 @@ TextureImporter:
       bones: []
       spriteID: 74c2c75bc2adfda46b6f1064236ecf5e
       internalID: -3202018510914386739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoleTLR
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30291261e678e0e439dcd59a4b88af1d
+      internalID: 6381443670605772290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HoleBLR
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 192
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a410ad4f6bd00546af1ebf42e44c9ca
+      internalID: 7718535393054611025
       vertices: []
       indices: 
       edges: []

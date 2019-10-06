@@ -4,13 +4,15 @@ using UnityEngine;
 
 public enum PickUpType
 {
-    ColorChange
+    ColorChange,
+    SizeChange
 }
 
 public class PickUp : MonoBehaviour
 {
     public PickUpType Type = PickUpType.ColorChange;
     public LogicColor NewColor = LogicColor.White;
+    public float DeltaSize = 0f;
 
     void Start()
     {
