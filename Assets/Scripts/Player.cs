@@ -43,8 +43,9 @@ public class Player : MonoBehaviour
         _baseLocalScale = transform.localScale;
     }
 
-    public void ResetScale()
+    public void SetScale(float scale)
     {
+        _baseLocalScale = new Vector3(scale, scale, scale);
         transform.localScale = _baseLocalScale;
     }
 
@@ -63,6 +64,8 @@ public class Player : MonoBehaviour
     public void SetDeltaSize(float deltaSize)
     {
         _baseLocalScale += new Vector3(deltaSize, deltaSize, deltaSize);
+        _baseLocalScale = Vector3.Min(_baseLocalScale, new Vector3(2.0f, 2.0f, 2.0f)); // safety
+        _baseLocalScale = Vector3.Max(_baseLocalScale, new Vector3(0.2f, 0.2f, 0.2f)); // safety
         transform.localScale = _baseLocalScale;
     }
 

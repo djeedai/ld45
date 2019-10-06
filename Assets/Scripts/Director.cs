@@ -139,9 +139,9 @@ public class Director : MonoBehaviour
                 Player.transform.position = playerStartGO.transform.position;
                 // Force even if player has the same color, because level changed
                 Player.SetColor(playerStart.StartColor, force: true);
+                Player.SetScale(playerStart.StartScale);
             }
         }
-        Player.ResetScale(); // HoleTrigger makes the player disappear
 
         // Start level
         {
