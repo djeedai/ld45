@@ -146,7 +146,83 @@ public class Director : MonoBehaviour
         // Start level
         {
             var level = _grid.GetComponentInChildren<Level>(includeInactive: true);
+
+            // Crossfade BGM if needed
+            {
+                // Find the only paying BGM source, and destroy all others
+                AudioSource curBgm = null;
+                {
+                    var allBgms = GetComponents<AudioSource>();
+                    foreach (var bgm in allBgms)
+                    {
+                        if (bgm.isPlaying)
+                        {
+                            curBgm = bgm;
+                        }
+                        else
+                        {
+                            Destroy(bgm);
+                        }
+                    }
+                }
+
+                // Create the loop BGM audio source, and the intro one if any, then crossfade
+                if ((curBgm == null) || ((level.BackgroundMusicIntro != curBgm.clip) && (level.BackgroundMusicLoop != curBgm.clip)))
+                {
+                    AudioSource newBgmIntro = null;
+                    AudioSource newBgmLoop = null;
+                    if (level.BackgroundMusicIntro != null)
+                    {
+                        newBgmIntro = gameObject.AddComponent<AudioSource>();
+                        newBgmIntro.volume = 0f;
+                        newBgmIntro.loop = false;
+                        newBgmIntro.clip = level.BackgroundMusicIntro;
+                    }
+                    if (level.BackgroundMusicLoop != null)
+                    {
+                        newBgmLoop = gameObject.AddComponent<AudioSource>();
+                        newBgmLoop.volume = 0f;
+                        newBgmLoop.loop = true;
+                        newBgmLoop.clip = level.BackgroundMusicLoop;
+                    }
+                    if (newBgmIntro != null)
+                    {
+                        newBgmLoop.volume = 1f;
+                        newBgmIntro.Play();
+                        newBgmLoop.PlayDelayed(newBgmIntro.clip.length);
+                        StartCoroutine(CrossFade(curBgm, newBgmIntro));
+                    }
+                    else if (newBgmLoop != null)
+                    {
+                        newBgmLoop.Play();
+                        StartCoroutine(CrossFade(curBgm, newBgmLoop));
+                    }
+                }
+            }
+
             _levelCoroutine = StartCoroutine(level.StartLevel());
+        }
+    }
+
+    IEnumerator CrossFade(AudioSource oldSource, AudioSource newSource)
+    {
+        const int numSteps = 180;
+        float vol = 0.0f;
+        float dvol = 1.0f / numSteps;
+        for (int i = 0; i < numSteps; ++i)
+        {
+            vol += dvol;
+            if (oldSource != null)
+            {
+                oldSource.volume = 1.0f - vol;
+            }
+            newSource.volume = vol;
+            yield return null;
+        }
+
+        if (oldSource != null)
+        {
+            Destroy(oldSource);
         }
     }
 

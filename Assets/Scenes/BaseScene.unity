@@ -171,10 +171,20 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1842260995329995699, guid: 4fb1073b1514a5044bbfe9c642e70e25,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8572354145003393784, guid: 4fb1073b1514a5044bbfe9c642e70e25,
         type: 3}
       propertyPath: m_Name
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 561050312801811774, guid: 4fb1073b1514a5044bbfe9c642e70e25,
+        type: 3}
+      propertyPath: StartLevelName
+      value: Test1
       objectReference: {fileID: 0}
     - target: {fileID: 8572354145003393789, guid: 4fb1073b1514a5044bbfe9c642e70e25,
         type: 3}

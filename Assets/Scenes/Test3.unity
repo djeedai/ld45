@@ -4308,6 +4308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3f7b76b19cd1f4d9ab59b7dd779d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundMusic: {fileID: 8300000, guid: 0796828b307b25845b0d5144846629b6, type: 3}
 --- !u!156049354 &1628588481
 Grid:
   m_ObjectHideFlags: 0
