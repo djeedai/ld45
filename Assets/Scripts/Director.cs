@@ -384,10 +384,13 @@ public class Director : MonoBehaviour
 
     public void PlaySfx(AudioClip sfxClip)
     {
-        var source = Player.GetComponent<AudioSource>();
-        source.Stop();
-        source.clip = sfxClip;
-        source.volume = 1f;
-        source.Play();
+        if (sfxClip != null)
+        {
+            var source = Player.GetComponent<AudioSource>();
+            source.Stop();
+            source.clip = sfxClip;
+            source.volume = 1f;
+            source.Play();
+        }
     }
 }

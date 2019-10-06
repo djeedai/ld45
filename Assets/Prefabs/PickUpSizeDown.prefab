@@ -4842,6 +4842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ba9bb24530a97349a907ae539662564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PickUpSfx: {fileID: 8300000, guid: a0eb548d59a46c947b42c469fa727252, type: 3}
   Type: 1
   NewColor: 1
   DeltaSize: -0.2

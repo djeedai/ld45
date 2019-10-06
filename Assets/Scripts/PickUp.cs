@@ -10,6 +10,7 @@ public enum PickUpType
 
 public class PickUp : MonoBehaviour
 {
+    public AudioClip PickUpSfx;
     public PickUpType Type = PickUpType.ColorChange;
     public LogicColor NewColor = LogicColor.White;
     public float DeltaSize = 0f;
@@ -23,6 +24,7 @@ public class PickUp : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
+            Director.Instance.PlaySfx(PickUpSfx);
             collider.gameObject.GetComponent<Player>().OnPickUp(this);
             Destroy(gameObject);
         }

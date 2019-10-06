@@ -10,10 +10,17 @@ public class Lever : MonoBehaviour
     public UnityEvent OnLever = new UnityEvent();
 
     SpriteRenderer _spriteRenderer;
+    AudioSource _audioSource;
 
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.playOnAwake = false;
+        _audioSource.Stop();
+        _audioSource.loop = false;
+        _audioSource.volume = 1f;
     }
 
     void Update()
@@ -35,7 +42,7 @@ public class Lever : MonoBehaviour
         {
             return;
         }
-
+        _audioSource.Play();
         OnLever.Invoke();
     }
 }
