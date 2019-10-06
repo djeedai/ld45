@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Level : MonoBehaviour
+public class Level : MonoBehaviour
 {
     public AudioClip BackgroundMusicIntro;
     public AudioClip BackgroundMusicLoop;
 
-    public abstract IEnumerator StartLevel();
+    public virtual IEnumerator StartLevel()
+    {
+        // Default implementation does nothing, immediately return
+        yield break;
+    }
 }

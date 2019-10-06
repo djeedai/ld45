@@ -97,7 +97,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4199,7 +4199,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1628588482}
   - component: {fileID: 1628588481}
-  - component: {fileID: 1628588480}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -4207,20 +4206,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!114 &1628588480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628588479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f3f7b76b19cd1f4d9ab59b7dd779d12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BackgroundMusicIntro: {fileID: 0}
-  BackgroundMusicLoop: {fileID: 0}
 --- !u!156049354 &1628588481
 Grid:
   m_ObjectHideFlags: 0

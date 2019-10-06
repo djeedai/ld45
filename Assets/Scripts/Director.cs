@@ -146,9 +146,10 @@ public class Director : MonoBehaviour
         // Start level
         {
             var level = _grid.GetComponentInChildren<Level>(includeInactive: true);
-
-            // Crossfade BGM if needed
+            if (level != null)
             {
+                // Crossfade BGM if needed
+
                 // Find the only paying BGM source, and destroy all others
                 AudioSource curBgm = null;
                 {
@@ -198,9 +199,11 @@ public class Director : MonoBehaviour
                         StartCoroutine(CrossFade(curBgm, newBgmLoop));
                     }
                 }
+
+                // Start level-specific logic
+                _levelCoroutine = StartCoroutine(level.StartLevel());
             }
 
-            _levelCoroutine = StartCoroutine(level.StartLevel());
         }
     }
 
