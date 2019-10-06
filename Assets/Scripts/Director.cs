@@ -212,6 +212,11 @@ public class Director : MonoBehaviour
                     }
                 }
 
+                // Enable player controller before starting logic, in case it's starting
+                // a dialog right away which will otherwise save the controller status as
+                // inactive so will deactivate it again when the dialog is completed.
+                PlayerController.enabled = true;
+
                 // Start level-specific logic
                 _levelCoroutine = StartCoroutine(level.StartLevel());
             }
@@ -357,8 +362,6 @@ public class Director : MonoBehaviour
 
         // Start new level logic
         UpdateLevelData();
-
-        PlayerController.enabled = true;
     }
 
     IEnumerator WaitForUse()

@@ -13,7 +13,10 @@ public class HoleTrigger : MonoBehaviour
     void Awake()
     {
         _selfCollider = GetComponent<CompositeCollider2D>();
-        FallClip?.LoadAudioData();
+        if (FallClip != null)
+        {
+            FallClip.LoadAudioData();
+        }
     }
 
     void Update()
