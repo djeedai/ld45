@@ -381,4 +381,13 @@ public class Director : MonoBehaviour
         //< TODO - Exit title?
         Application.Quit();
     }
+
+    public void PlaySfx(AudioClip sfxClip)
+    {
+        var source = Player.GetComponent<AudioSource>();
+        source.Stop();
+        source.clip = sfxClip;
+        source.volume = 1f;
+        source.Play();
+    }
 }

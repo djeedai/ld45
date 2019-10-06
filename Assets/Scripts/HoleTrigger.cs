@@ -5,12 +5,15 @@ using UnityEngine.Tilemaps;
 
 public class HoleTrigger : MonoBehaviour
 {
+    public AudioClip FallClip;
+
     CompositeCollider2D _selfCollider;
     BoxCollider2D _playerCollider;
 
     void Awake()
     {
         _selfCollider = GetComponent<CompositeCollider2D>();
+        FallClip?.LoadAudioData();
     }
 
     void Update()
@@ -28,10 +31,15 @@ public class HoleTrigger : MonoBehaviour
             if (allInside)
             {
                 // Fall into the hole and die
-                Director.Instance.PlayerController.enabled = false;
+                var director = Director.Instance;
+                director.PlayerController.enabled = false;
+                director.PlaySfx(FallClip);
                 var sr = Director.Instance.Player.GetComponent<SpriteRenderer>();
                 var co = FadeToHole(Director.Instance.Player.transform, sr);
                 StartCoroutine(co);
+
+                // Forget about the player, so avoid repeating all of that
+                _playerCollider = null;
             }
         }
     }

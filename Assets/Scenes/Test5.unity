@@ -8263,6 +8263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd79de4f80465c4291816358a413942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FallClip: {fileID: 8300000, guid: 6ae1778f89e541843aa58f20b5d0c32e, type: 3}
 --- !u!66 &184949446
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -8581,6 +8582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd79de4f80465c4291816358a413942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FallClip: {fileID: 8300000, guid: 6ae1778f89e541843aa58f20b5d0c32e, type: 3}
 --- !u!66 &204724928
 CompositeCollider2D:
   m_ObjectHideFlags: 0
