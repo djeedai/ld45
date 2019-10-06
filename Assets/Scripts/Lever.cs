@@ -11,6 +11,7 @@ public class Lever : MonoBehaviour
 
     SpriteRenderer _spriteRenderer;
     AudioSource _audioSource;
+    bool triggered = false; //< FIXME - bad code
 
     void Awake()
     {
@@ -38,10 +39,15 @@ public class Lever : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (triggered)
+        {
+            return;
+        }
         if (collider.tag != "Player")
         {
             return;
         }
+        triggered = true;
         _audioSource.Play();
         OnLever.Invoke();
     }
