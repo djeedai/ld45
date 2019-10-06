@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ba9bb24530a97349a907ae539662564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PickUpSfx: {fileID: 8300000, guid: d39d1312d584dd843811f5cf57ddee22, type: 3}
+  PickUpSfx: {fileID: 8300000, guid: 2b73bc3a56c36be4f81d45761ef8d0f9, type: 3}
   Type: 0
   NewColor: 1
   DeltaSize: 0
