@@ -220,8 +220,10 @@ public class Director : MonoBehaviour
                 // Start level-specific logic
                 _levelCoroutine = StartCoroutine(level.StartLevel());
             }
-
         }
+
+        // Force again (bug in level 3?)
+        PlayerController.enabled = true;
     }
 
     IEnumerator CrossFade(AudioSource oldSource, AudioSource newSource)
