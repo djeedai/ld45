@@ -80,7 +80,7 @@ public class Director : MonoBehaviour
     {
         if (Input.GetButtonDown("OpenMenu"))
         {
-            _menu.SetActive(true);
+            ShowMenu();
         }
     }
 
